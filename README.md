@@ -1,4 +1,4 @@
-# Project Name
+# TripPin
 
 > Pithy project description
 
