@@ -16,9 +16,6 @@ Edit Code
 4) git pull --rebase upstream master
 
 5) git rebase --continue
-<<<<<<< 0a53183084042f5e0789c667ab6848e6aa967002
-6) git push origin BRANCH NAME
-=======
 
 6) git push origin BRANCHNAME
->>>>>>> Update how to make changes
+
