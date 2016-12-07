@@ -35,13 +35,22 @@
 
 ### Installing Dependencies
 
-From within the root directory:
+From within the trippin directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
+
+### Running Server and Accessing Client
+
+From within the trippin directory:
+
+```sh
+nodemon bin/www
+```
+
+Then point your browser towards localhost:3000
+
 
 ### Roadmap
 
