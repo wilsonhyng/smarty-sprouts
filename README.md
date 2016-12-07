@@ -1,12 +1,13 @@
 # TripPin
 
-> Pithy project description
+> Remember your trips!
+> Drop a pin where you tripped and select your photos so you can see them later at that pin.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Yoshi Oritatsu
+  - __Scrum Master__: Joe Denea
+  - __Development Team Members__: Vy Trinh, Wilson Ng
 
 ## Table of Contents
 
