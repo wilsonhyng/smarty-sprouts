@@ -1,9 +1,8 @@
 var TripPin = angular.module('TripPin', ['ngRoute', 'uiGmapgoogle-maps']);
 
-// create the controller and inject Angular's $scope
 TripPin.controller('mainController', function($scope) {
-  // create a message to display in our view
   $scope.message = 'Everyone come and see how good I look!';
+
 });
 
 TripPin.controller('signinController', function($scope) {
@@ -14,8 +13,11 @@ TripPin.controller('signinController', function($scope) {
   };
 });
 
-TripPin.config(function($GoogleMapApiProviders) {
-  GoogleMapApiProviders.configure({
-    china: true
+
+TripPin.controller("mapController", function($scope, uiGmapGoogleMapApi) {
+  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 5 };
+
+  uiGmapGoogleMapApi.then(function(maps) {
+
   });
 });
