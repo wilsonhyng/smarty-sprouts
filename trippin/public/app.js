@@ -1,4 +1,4 @@
-var TripPin = angular.module('TripPin', ['ngRoute', 'uiGmapgoogle-maps']);
+var TripPin = angular.module('TripPin', ['ngRoute']);
 
 TripPin.controller('mainController', function($scope) {
   $scope.message = 'Everyone come and see how good I look!';
@@ -6,18 +6,19 @@ TripPin.controller('mainController', function($scope) {
 });
 
 TripPin.controller('signinController', function($scope) {
+
   $scope.username = '';
   $scope.password = '';
   $scope.clickSubmit = function() {
     alert($scope.username, $scope.password);
   };
+
 });
 
 
-TripPin.controller("mapController", function($scope, uiGmapGoogleMapApi) {
-  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 5 };
+TripPin.controller("mapController", function($scope, gservice) {
 
-  uiGmapGoogleMapApi.then(function(maps) {
-
-  });
+  // use gservice created in gservice.js
+  gservice.refresh(19,  173);
 });
+
