@@ -68,7 +68,7 @@ TripPin.factory('gservice', function(){
               maxWidth: 320
           }),
           title: pin.title,
-          age: pin.description
+          description: pin.description
       });
     }
     // location is now an array populated with records in Google Maps format
