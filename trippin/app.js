@@ -13,6 +13,13 @@ var db = require('./db/db.js');
 // import route files
 var index = require('./routes/index');
 var test = require('./routes/test');
+var pin = require('./routes/pin');
+var user = require('./routes/user');
+
+app.use(express.session({
+  secret: 'sdfad43f-df43jkn-3j534jkh-n34bkj5',
+  cookie: { maxAge: 2628000000 }
+}));
 
 // serve index.html on request to '/'
 app.use(serveStatic(path.join(__dirname, 'views'), {
@@ -38,6 +45,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // handle routes
 app.use('/', index);
 app.use('/test', test);
+app.use('/pin', pin);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
