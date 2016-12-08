@@ -5,12 +5,32 @@ TripPin.controller('mainController', function($scope) {
 
 });
 
-TripPin.controller('signinController', function($scope) {
+TripPin.controller('signinController', function($scope, $http) {
 
   $scope.username = '';
   $scope.password = '';
+
   $scope.clickSubmit = function() {
     alert($scope.username, $scope.password);
+
+    $http({
+      method: 'POST',
+      url: '/user',
+      data: {
+        name: $scope.username,
+        password: $scope.password
+      }
+    }).then(function successCallback(response) {
+        console.log('Logged in')
+        $location.path('/map');
+        // this callback will be called asynchronously
+        // when the response is available
+      }, function errorCallback(response) {
+        console.log('Try again');
+        $location.path('/signin');
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
   };
 
 });
