@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var serveStatic = require('serve-static');
+var session = require('express-session');
 
 var app = express();
 
@@ -16,9 +17,11 @@ var test = require('./routes/test');
 var pin = require('./routes/pin');
 var user = require('./routes/user');
 
-app.use(express.session({
+app.use(session({
   secret: 'sdfad43f-df43jkn-3j534jkh-n34bkj5',
-  cookie: { maxAge: 2628000000 }
+  cookie: { maxAge: 2628000000 },
+  resave: false,
+  saveUninitialized: true
 }));
 
 // serve index.html on request to '/'

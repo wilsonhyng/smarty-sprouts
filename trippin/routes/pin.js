@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
     return;
   }
   var Pins = mongoose.model('Pins');
-  var pin = new Pins({ userId: req.session._id, lat: req.body.lat, lon: req.body.lon });
+  var pin = new Pins({ userId: req.session._id, title: req.body.title, lat: req.body.lat, lon: req.body.lon });
   pin.save();
   res.end('Pin Saved');
 });
