@@ -9,6 +9,7 @@ var Users = new Schema({
 
 var Pins = new Schema({
   userId: { type: ObjectId, ref: 'Users' },
+  title: String,
   lat: Number,
   lon: Number
 });
