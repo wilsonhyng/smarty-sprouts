@@ -4,12 +4,13 @@ var
   ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Users = new Schema({
-  name: String,
+  name: String
 });
 
 var Pins = new Schema({
   userId: { type: ObjectId, ref: 'Users' },
   title: String,
+  description: String,
   lat: Number,
   lon: Number
 });
