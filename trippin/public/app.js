@@ -11,11 +11,13 @@ TripPin.controller('signinController', function($scope, $http) {
   $scope.password = '';
 
   $scope.clickSubmit = function() {
-    alert($scope.username, $scope.password);
 
     $http({
       method: 'POST',
       url: '/user',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       data: {
         name: $scope.username,
         password: $scope.password
