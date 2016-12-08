@@ -32,14 +32,43 @@ TripPin.controller('signinController', function($scope, $http) {
         $location.path('/signin');
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-      });
+    });
   };
 });
 
 
-TripPin.controller("mapController", function($scope, gservice) {
+TripPin.controller("mapController", function($scope, gservice, $http) {
 
   // use gservice created in gservice.js
-  gservice.refresh(19,  173);
+  gservice.refresh(19, 173);
+
+
+  // make http request to the server with fakedata for testing
+  $scope.clickAddPin = function(){
+    $http({
+      method: 'POST',
+      url: '/pins',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        title: 'test title', 
+        description: 'test description', 
+        location: [29.8, -133.6]
+      }
+    }).then(function successCallback(response) {
+        console.log('Pin added')
+        // this callback will be called asynchronously
+        // when the response is available
+      }, function errorCallback(response) {
+        console.log('Try again');
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+    });
+  }
+
+
+
+
 });
 
