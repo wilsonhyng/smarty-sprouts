@@ -2,18 +2,30 @@
 <!DOCTYPE html>
 <html ng-app="TripPin">
 <head>
-  <!-- SCROLLS -->
-  <!-- load bootstrap and fontawesome via CDN -->
-  <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />-->
 
-  <!-- SPELLS -->
-  <!-- load angular and angular route via CDN -->
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="./stylesheets/style.css" />
+
+  <!-- Dependencies  -->
+  <script src='./lib/lodash.js'></script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src='./lib/angular-simple-logger.js'></script>
+
   <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+  <script src='./lib/angular-google-maps.js'></script>
+
+  <!-- Our JS -->
   <script src="app.js"></script>
   <script src="routes.js"></script>
+
+
+<style>
+  .angular-google-map-container { height: 400px; width: 500px; }
+</style>
+
+
 </head>
 
 <body ng-controller="mainController">
