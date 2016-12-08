@@ -13,7 +13,8 @@ var Pins = new Schema({
   lon: Number
 });
 
-Mongoose.model('Users', Users);
-Mongoose.model('Pins', Pins);
+mongoose.model('Users', Users);
+mongoose.model('Pins', Pins);
 
-mongoose.connect('mongod://localhost/trippin');
+mongoose.connect('mongodb://localhost:27017/trippin');
+
