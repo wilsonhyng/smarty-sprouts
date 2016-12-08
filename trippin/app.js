@@ -6,17 +6,20 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var serveStatic = require('serve-static');
 
-var index = require('./routes/index');
-// var error = require('./routes/error');
-
 var app = express();
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+var db = require('./db/db.js');
+
+// import route files
+var index = require('./routes/index');
+var test = require('./routes/test');
+
+// serve index.html on request to '/'
 app.use(serveStatic(path.join(__dirname, 'views'), {
   'index': 'index.html'
 }));
+
+// serve error pages
 app.use('/error404', serveStatic(path.join(__dirname, 'views'), {
   'index': 'error404.html'
 }));
@@ -32,7 +35,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// handle routes
 app.use('/', index);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -49,8 +54,13 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  if (err.status === 404) res.redirect('/error404');
-  else res.redirect('/error');
+
+  // redirect to error pages
+  if (err.status === 404) {
+    res.redirect('/error404');
+  } else {
+    res.redirect('/error');
+  }
 });
 
 module.exports = app;
