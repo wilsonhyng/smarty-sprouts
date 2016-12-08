@@ -1,1 +1,40 @@
-<p>Hi World!</p>
+<!DOCTYPE html>
+<html ng-app="TripPin">
+  <head>
+    <title>TripPin</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css" />
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+
+    <!-- GoogleMap API (*** Yoshi's key used here) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcMVZlEWQaqAnEdvkXSoZaeCFjhZqBVXA"></script>
+
+    <!-- Our JS Code -->
+    <script src="app.js"></script>
+    <script src="gservice.js"></script>
+    <script src="routes.js"></script>
+  </head>
+
+
+  <body ng-controller="mainController">
+    <a href="#/signin">Sign In</a>
+    <a href="#/map">Map</a>
+
+    (For Development Purpose: If Angular is hooked up correctly, this should evaluate to 3: {{1+2}} )
+
+    <div id="main" ng-view>
+      <!-- this is where HTML tempaltes will be inserted via route.js -->
+    </div>
+    <div id="map"></div>
+
+
+
+  </body>
+
+</html>
