@@ -16,6 +16,7 @@ var fakeImgUrl = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEbjc5HD
 var newMarker;
 var infowindow;
 
+
 TripPin.factory('gservice', function($http){
 
   var googleMapService = {};
