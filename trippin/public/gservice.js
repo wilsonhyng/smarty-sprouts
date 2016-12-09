@@ -1,8 +1,9 @@
-// ===============================================================================
+// fakeData =====================================================================
 var fakeData = [
   {title: 'title1', description: 'description1', location: [39.50, 0] },
   {title: 'title2', description: 'description2', location: [39.50, 50] },
 ];
+var fakeImgUrl = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEbjc5HDFjYLinlxzmmP3vjkMA2hCA-9RZumKhLQKOejjqNJeeiw';
 
 // ===============================================================================
 // Example: https://scotch.io/tutorials/making-mean-apps-with-google-maps-part-i
@@ -11,7 +12,11 @@ var fakeData = [
   gservice returns an object (googleMapService) with methods to refresh map with pins
 */
 
-TripPin.factory('gservice', function(){
+// make newMarker and infowindow variables available in the global scope so that info window works
+var newMarker;
+var infowindow;
+
+TripPin.factory('gservice', function($http){
 
   var googleMapService = {};
   var locations = [];   // Array of locations obtained from API calls
@@ -31,15 +36,21 @@ TripPin.factory('gservice', function(){
     selectedLat = latitude;
     selectedLong = longitude;
 
-      // **** instead of http request, use fakeData for now (http request later) ******
-      response = fakeData;
-      locations = convertToMapPoints(response);
+    // Make a get request to the server to fetch pin locations
+    $http({
+      method: 'GET',
+      url: '/pin',
+    }).then(function successCallback(response) {
+      // convert response.data into map point obj by calling convertToMapPoints function
+      locations = convertToMapPoints( response.data );
 
-      // Then initialize the map.
+      // initialize the map by calling initialize funciton
       initialize(latitude, longitude);
-      console.log('end of refresh')
-      // **** instead of http request, use fakeData for now (http request later) ******
 
+      }, 
+      function errorCallback(response) {
+        console.log('Try again');
+    });
   };
   // ------------------------------------------------------------------------------------
 
@@ -58,11 +69,12 @@ TripPin.factory('gservice', function(){
       var  contentString =
           '<p><b>title</b>: ' + pin.title +
           '<br><b>description</b>: ' + pin.description +
-          '</p>';
+          '</p>' +
+          '<img src='+fakeImgUrl+' height="42" width="42">';
 
       // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
       locations.push({
-          latlon: new google.maps.LatLng(pin.location[1], pin.location[0]),
+          latlon: new google.maps.LatLng(pin.lat, pin.lon),
           message: new google.maps.InfoWindow({
               content: contentString,
               maxWidth: 320
@@ -72,13 +84,38 @@ TripPin.factory('gservice', function(){
       });
     }
     // location is now an array populated with records in Google Maps format
-    console.log('end of convertToMapPoints')
     return locations;
   };
   // ------------------------------------------------------------------------------------
 
+  // Make http request to the server when user adds a marker and fills in a form ----------
+  // make saveData function avaialble in the global scope so that info window works
+  window.saveData = function() {
+    var title = escape(document.getElementById("titleInput").value);
+    var description = escape(document.getElementById("descriptionInput").value);
+    var latlng = newMarker.getPosition();
+
+    $http({
+      method: 'POST',
+      url: '/pin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        title: title, 
+        description: description, 
+        location: [latlng.lat(), latlng.lng()]
+      }
+    }).then(function successCallback(response) {
+        console.log('Pin added to the database')
+      }, function errorCallback(response) {
+        console.log('Try again');
+    });
+  }
+  // ------------------------------------------------------------------------------------
+
   // Initializes the map ---------------------------------------------------------------
-  var initialize = function(latitude, longitude) {
+  function initialize(latitude, longitude) {
     // Uses the selected lat, long as starting point
     var myLatLng = {lat: selectedLat, lng: selectedLong};
 
@@ -89,11 +126,33 @@ TripPin.factory('gservice', function(){
           zoom: 2,
           center: myLatLng
       });
+
+      infowindow = new google.maps.InfoWindow({
+        content: ''
+      });
+
+      google.maps.event.addListener(map, 'click', function (e) {       
+        var lat = e.latLng.lat();
+        var lng = e.latLng.lng();
+        var text=123;
+
+        var html = "<table>" +
+                   "<tr><td>Title:</td> <td><input type='text' id='titleInput'/> </td> </tr>" +
+                   "<tr><td>Description:</td> <td><input type='text' id='descriptionInput'/></td> </tr>" +
+                   "<tr><td></td><td><input type='button' value='Save & Close' onclick='saveData()'/></td></tr>";
+
+        newMarker = new google.maps.Marker({
+          position: e.latLng,
+          map: map
+        });
+        infowindow.setContent(html);
+        infowindow.open(map, newMarker);
+      });
     }
 
     // Loop through each location in the array and place a marker
     locations.forEach(function(locationObj, index){
-      console.log('----placing marker ---------')
+
       var marker = new google.maps.Marker({
           position: locationObj.latlon,
           map: map,
@@ -103,29 +162,32 @@ TripPin.factory('gservice', function(){
 
       // For each marker created, add a listener that checks for clicks
       google.maps.event.addListener(marker, 'click', function(e){
-
         // When clicked, open the selected marker's message
-        currentSelectedMarker = locationObj;
         locationObj.message.open(map, marker);
       });
     });
 
-    // Set initial location as a bouncing red marker
-    var initialLocation = new google.maps.LatLng(latitude, longitude);
-
-    var marker = new google.maps.Marker({
-        position: initialLocation,
-        animation: google.maps.Animation.BOUNCE,
-        map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-    });
-
-    // (Yoshi's comment: not sure what this is for)
-    lastMarker = marker;
-
-    console.log('end of initialize')
   };
   // ------------------------------------------------------------------------------------
 
   return googleMapService;
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
