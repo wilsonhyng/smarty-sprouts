@@ -4,7 +4,8 @@ var
   ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Users = new Schema({
-  name: String
+  email: String,
+  token: String
 });
 
 var Pins = new Schema({
