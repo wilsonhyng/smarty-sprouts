@@ -21,7 +21,7 @@
 
 ## Usage
 
-> Some usage instructions
+> Third-party cookies need to be enabled.
 
 ## Requirements
 
