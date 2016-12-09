@@ -13,20 +13,35 @@ var db = require('./db/db.js');
 
 // import route files
 var index = require('./routes/index');
-var test = require('./routes/test');
+// var test = require('./routes/test');
 var pin = require('./routes/pin');
-var user = require('./routes/user');
+// var user = require('./routes/user');
+var login = require('./routes/login');
 
 app.use(session({
-  secret: 'sdfad43f-df43jkn-3j534jkh-n34bkj5',
+  secret: 'LjPe33XGTnq3FqzxSHigL_uy',
   cookie: { maxAge: 2628000000 },
   resave: false,
   saveUninitialized: true
 }));
 
+app.get('/', function(req, res, next) {
+  console.log(req.session._id);
+  if (!req.session._id) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
 // serve index.html on request to '/'
 app.use(serveStatic(path.join(__dirname, 'views'), {
   'index': 'index.html'
+}));
+
+// serve login.html on request to '/login'
+app.use('/login', serveStatic(path.join(__dirname, 'views'), {
+  'index': 'login.html'
 }));
 
 // serve error pages
@@ -38,7 +53,7 @@ app.use('/error', serveStatic(path.join(__dirname, 'views'), {
 }));
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,9 +62,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // handle routes
 app.use('/', index);
-app.use('/test', test);
+// app.use('/test', test);
 app.use('/pin', pin);
-app.use('/user', user);
+// app.use('/user', user);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
