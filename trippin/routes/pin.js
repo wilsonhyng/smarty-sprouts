@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   var Pins = mongoose.model('Pins');
   Pins.find({ userId: req.session._id })
   .then(function(pins) {
-    res.end(pins);
+    res.end(JSON.stringify(pins));
   });
 });
 
