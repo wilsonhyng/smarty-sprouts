@@ -49,7 +49,7 @@ From within the trippin directory:
 nodemon bin/www
 ```
 
-Then point your browser towards localhost:3000
+Then point your browser towards [localhost:3000](http://localhost:3000)
 
 
 ### Roadmap
