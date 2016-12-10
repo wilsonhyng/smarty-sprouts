@@ -7,6 +7,9 @@ TripPin.config(function ($routeProvider) { //TODO: add locationProvider later?
   .when('/map', {
     templateUrl : './templates/map.html',
     controller  : 'mapController'
+  })
+  .otherwise({
+    redirectTo  : '/map'
   });
 });
 
