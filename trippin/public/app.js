@@ -61,9 +61,5 @@ TripPin.controller("mapController", function($scope, gservice, $http) {
   //       // or server returns response with an error status.
   //   });
   // }
-
-
-
-
 });
 
