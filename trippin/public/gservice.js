@@ -195,11 +195,11 @@ TripPin.factory('gservice', function($http, $sanitize) {
           var lng = e.latLng.lng();
           var text=123;
 
-          var html = "<table><form>" +
+          var html = "<form><table>" +
                      "<tr><td>Title:</td> <td><input type='text' id='titleInput'/> </td> </tr>" +
                      "<tr><td>Description:</td> <td><input type='text' id='descriptionInput'/></td> </tr>" +
-                     "<tr><td></td><td><input type='submit' value='Save & Close' onclick='saveData()'/></td></tr>" +
-                     "</form></table>";
+                     "<tr><td></td><td><input type='button' value='Save & Close' onclick='saveData()'/></td></tr>" +
+                     "</table></form>";
 
           prevMarker = newMarker = new google.maps.Marker({
             position: e.latLng,
