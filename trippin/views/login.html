@@ -24,6 +24,7 @@
           })
         }).done(function(data) {
           // Redirect on sign-in
+          data = JSON.parse(data);
           window.location.href = data.url;
         });
       };

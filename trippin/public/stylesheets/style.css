@@ -1,20 +1,26 @@
 body {
   /*background-image: url('../img/lctfowsi27e-glauber-sampaio.jpg');;*/
-  background-size: 100%;
+  /*background-size: 100%;*/
 
   height: 100%;
+  width: 100%;
   margin: 0;
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 html {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 
 a {
   color: #00B7FF;
+}
+
+.pin-title {
+  font-weight: 600;
 }
 
 #map {
