@@ -20,6 +20,9 @@ var infowindow;
 var limiter = 0;
 var prevMarker = null;
 
+// variable to store the reference to the map
+var map = null;
+
 
 TripPin.factory('gservice', function($http) {
 
@@ -79,13 +82,13 @@ TripPin.factory('gservice', function($http) {
 
       // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
       locations.push({
-          latlon: new google.maps.LatLng(pin.lat, pin.lon),
-          message: new google.maps.InfoWindow({
-              content: contentString,
-              maxWidth: 320
-          }),
-          title: pin.title,
-          description: pin.description
+        latlon: new google.maps.LatLng(pin.lat, pin.lon),
+        message: new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 320
+        }),
+        title: pin.title,
+        description: pin.description
       });
     }
     // location is now an array populated with records in Google Maps format
@@ -117,10 +120,10 @@ TripPin.factory('gservice', function($http) {
 
       // Create a popup window for the new location
       var  contentString =
-        '<p><b>title</b>: ' + pin.title +
-        '<br><b>description</b>: ' + pin.description +
-        '</p>' +
-        '<img src='+fakeImgUrl+' height="42" width="42">';
+          '<p><b>title</b>: ' + pin.title +
+          '<br><b>description</b>: ' + pin.description +
+          '</p>' +
+          '<img src='+fakeImgUrl+' height="42" width="42">';
 
       // define the new location
       var newLoc = {
@@ -135,12 +138,14 @@ TripPin.factory('gservice', function($http) {
 
       // set the pin on the map
       var setPin = function(locationObj) {
+        console.log(1);
         var marker = new google.maps.Marker({
           position: locationObj.latlon,
           map: map,
           title: "Big Map",
           icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
         });
+        console.log(2);
 
         // add a listener that checks for clicks on the pin
         google.maps.event.addListener(marker, 'click', function(e) {
@@ -153,7 +158,7 @@ TripPin.factory('gservice', function($http) {
       locations.push(newLoc);
       if (prevMarker) prevMarker.setMap(null);
       limiter = 0;
-      // setPin(newLoc);
+      setPin(newLoc);
 
       console.log('Pin added to the database');
     }, function errorCallback(response) {
@@ -170,7 +175,7 @@ TripPin.factory('gservice', function($http) {
     // If map has not been created already...
     if (!map){
       // Create a new map and place in the index.html page
-      var map = new google.maps.Map(document.getElementById('map'), {
+      map = new google.maps.Map(document.getElementById('map'), {
           zoom: 2,
           center: myLatLng
       });
