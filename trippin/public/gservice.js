@@ -85,10 +85,11 @@ TripPin.factory('gservice', function($http, $sanitize) {
       // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
       locations.push({
         latlon: new google.maps.LatLng(pin.lat, pin.lon),
-        message: new google.maps.InfoWindow({
-          content: contentString,
-          maxWidth: 320
-        }),
+        message: contentString,
+        // new google.maps.InfoWindow({
+          // content: contentString,
+          // maxWidth: 320
+        // }),
         title: pin.title,
         description: pin.description
       });
@@ -194,10 +195,11 @@ TripPin.factory('gservice', function($http, $sanitize) {
           var lng = e.latLng.lng();
           var text=123;
 
-          var html = "<table>" +
+          var html = "<table><form>" +
                      "<tr><td>Title:</td> <td><input type='text' id='titleInput'/> </td> </tr>" +
                      "<tr><td>Description:</td> <td><input type='text' id='descriptionInput'/></td> </tr>" +
-                     "<tr><td></td><td><input type='button' value='Save & Close' onclick='saveData()'/></td></tr>";
+                     "<tr><td></td><td><input type='submit' value='Save & Close' onclick='saveData()'/></td></tr>" +
+                     "</form></table>";
 
           prevMarker = newMarker = new google.maps.Marker({
             position: e.latLng,
@@ -227,8 +229,10 @@ TripPin.factory('gservice', function($http, $sanitize) {
 
       // For each marker created, add a listener that checks for clicks
       google.maps.event.addListener(marker, 'click', function(e) {
+        savedInfoWindow.setContent(locationObj.message);
+        savedInfoWindow.open(map, marker);
         // When clicked, open the selected marker's message
-        locationObj.message.open(map, marker);
+        // locationObj.message.open(map, marker);
       });
     });
 
