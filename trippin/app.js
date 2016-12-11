@@ -12,9 +12,10 @@ var app = express();
 var db = require('./db/db.js');
 
 // import route files
-var index = require('./routes/index');
 var pin = require('./routes/pin');
 var login = require('./routes/login');
+var photos = require('./routes/photos');
+
 
 // create session
 app.use(session({
@@ -60,9 +61,9 @@ app.use(cookieParser());
 app.use(serveStatic(path.join(__dirname, 'public')));
 
 // handle routes
-app.use('/', index);
 app.use('/pin', pin);
 app.use('/login', login);
+app.use('/photos', photos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

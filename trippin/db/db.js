@@ -16,8 +16,14 @@ var Pins = new Schema({
   lon: Number
 });
 
+var Photos = new Schema({
+  userId: { type: ObjectId, ref: 'Users' },
+  image: { data: Buffer, contentType: String }
+});
+
 mongoose.model('Users', Users);
 mongoose.model('Pins', Pins);
+mongoose.model('Photos', Photos);
 
 mongoose.connect('mongodb://localhost:27017/trippin');
 
