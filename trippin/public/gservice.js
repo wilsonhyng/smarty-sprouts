@@ -3,7 +3,7 @@ var fakeData = [
   {title: 'title1', description: 'description1', location: [39.50, 0] },
   {title: 'title2', description: 'description2', location: [39.50, 50] },
 ];
-var fakeImgUrl = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEbjc5HDFjYLinlxzmmP3vjkMA2hCA-9RZumKhLQKOejjqNJeeiw';
+var fakeImgUrl = 'http://travelchannel.sndimg.com/content/dam/images/travel/fullset/2015/03/2/japanese-cherry-blossom-viewing-kyoto-japan.jpg.rend.tccom.966.544.jpeg';
 
 // ===============================================================================
 // Example: https://scotch.io/tutorials/making-mean-apps-with-google-maps-part-i
@@ -80,7 +80,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
           '<p><b>title</b>: ' + pin.title +
           '<br><b>description</b>: ' + pin.description +
           '</p>' +
-          '<img src='+fakeImgUrl+' height="42" width="42">';
+          '<img src='+fakeImgUrl+' height="180" width="320">';
 
       // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
       locations.push({
@@ -127,7 +127,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
       var  contentString =
           '<p><span class="pin-title">' + pin.title +
           '</span><br>' + pin.description + '</p>' +
-          '<img src='+fakeImgUrl+' height="42" width="42">';
+          '<img src='+fakeImgUrl+' height="180" width="320">';
 
       // define the new location
       var newLoc = {
