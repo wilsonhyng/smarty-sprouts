@@ -15,6 +15,9 @@ var fakeImgUrl = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEbjc5HD
 // make newMarker and infowindow variables available in the global scope so that info window works
 var newMarker;
 var infowindow;
+var savedInfoWindow = new google.maps.InfoWindow({
+  maxWidth: 320
+});
 
 // limiter and marker for storing and deleting old markers placed by the user
 var limiter = 0;
@@ -23,8 +26,7 @@ var prevMarker = null;
 // variable to store the reference to the map
 var map = null;
 
-
-TripPin.factory('gservice', function($http) {
+TripPin.factory('gservice', function($http, $sanitize) {
 
   var googleMapService = {};
   var locations = [];   // Array of locations obtained from API calls
@@ -99,9 +101,11 @@ TripPin.factory('gservice', function($http) {
   // Make http request to the server when user adds a marker and fills in a form ----------
   // make saveData function avaialble in the global scope so that info window works
   window.saveData = function() {
-    var title = escape(document.getElementById("titleInput").value);
-    var description = escape(document.getElementById("descriptionInput").value);
+    var title = $sanitize(document.getElementById("titleInput").value);
+    var description = $sanitize(document.getElementById("descriptionInput").value);
     var latlng = newMarker.getPosition();
+
+    console.log(title, description);
 
     var pin = {
       title: title, 
@@ -120,9 +124,8 @@ TripPin.factory('gservice', function($http) {
 
       // Create a popup window for the new location
       var  contentString =
-          '<p><b>title</b>: ' + pin.title +
-          '<br><b>description</b>: ' + pin.description +
-          '</p>' +
+          '<p><span class="pin-title">' + pin.title +
+          '</span><br>' + pin.description + '</p>' +
           '<img src='+fakeImgUrl+' height="42" width="42">';
 
       // define the new location
@@ -138,19 +141,19 @@ TripPin.factory('gservice', function($http) {
 
       // set the pin on the map
       var setPin = function(locationObj) {
-        console.log(1);
         var marker = new google.maps.Marker({
           position: locationObj.latlon,
           map: map,
           title: "Big Map",
           icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
         });
-        console.log(2);
 
         // add a listener that checks for clicks on the pin
         google.maps.event.addListener(marker, 'click', function(e) {
+          savedInfoWindow.setContent(contentString);
+          savedInfoWindow.open(map, marker);
           // When clicked, open the pin's message
-          locationObj.message.open(map, marker);
+          // locationObj.message.open(map, marker);
         });
       }
 

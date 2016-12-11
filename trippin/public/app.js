@@ -1,4 +1,4 @@
-var TripPin = angular.module('TripPin', ['ngRoute']);
+var TripPin = angular.module('TripPin', ['ngRoute', 'ngSanitize']);
 
 TripPin.controller('mainController', function($scope) {
   $scope.message = 'Everyone come and see how good I look!';

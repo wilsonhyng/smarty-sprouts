@@ -19,6 +19,10 @@ a {
   color: #00B7FF;
 }
 
+.pin-title {
+  font-weight: 600;
+}
+
 #map {
   height: 100%;
 }
