@@ -13,11 +13,11 @@ router.post('/', function(req, res, next) {
       Users.findOne({ email: req.body.email })
       .then(function (user) {
         req.session._id = user._id;
-        res.send({ url: '/' });
+        res.send(JSON.stringify({ url: '/' }));
       });
     } else {
       req.session._id = users[0]._id;
-      res.send({ url: '/' });
+      res.send(JSON.stringify({ url: '/' }));
     }
   });
 });

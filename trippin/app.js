@@ -12,7 +12,6 @@ var app = express();
 var db = require('./db/db.js');
 
 // import route files
-var index = require('./routes/index');
 var pin = require('./routes/pin');
 var login = require('./routes/login');
 var photos = require('./routes/photos');
@@ -62,7 +61,6 @@ app.use(cookieParser());
 app.use(serveStatic(path.join(__dirname, 'public')));
 
 // handle routes
-app.use('/', index);
 app.use('/pin', pin);
 app.use('/login', login);
 app.use('/photos', photos);

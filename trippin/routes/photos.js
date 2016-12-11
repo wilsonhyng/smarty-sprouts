@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   var Photos = mongoose.model('Photos');
   Photos.find({ userId: req.session._id })
   .then(function(photos) {
-    res.send(photos);
+    res.send(JSON.stringify(photos));
   });
 });
 
