@@ -27,7 +27,7 @@ TripPin.factory('gservice', function($http){
   var selectedLong = 173;
 
   // googleMapService fecthes the user's pin data (title, description)
-  // and refrenshes the map by calling initialize ----------------------------------------
+  // and refreshes the map by calling initialize ----------------------------------------
   googleMapService.refresh = function(latitude, longitude){
 
     // Clears the holding array of locations
