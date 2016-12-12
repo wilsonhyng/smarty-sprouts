@@ -13,7 +13,8 @@ var Pins = new Schema({
   title: String,
   description: String,
   lat: Number,
-  lon: Number
+  lon: Number,
+  image: String
 });
 
 var Photos = new Schema({
