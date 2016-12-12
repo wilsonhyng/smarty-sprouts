@@ -30,6 +30,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
 
   var googleMapService = {};
   var locations = [];   // Array of locations obtained from API calls
+  var myMarkerArray = []; // Array of markers placed on the map
 
   // Initial Selected Location (default to center of the world)
   var selectedLat = 19;
@@ -41,6 +42,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
 
     // Clears the holding array of locations
     locations = [];
+    myMarkerArray = [];
 
     // Set the selected lat and long equal to the ones provided on the refresh() call
     selectedLat = latitude;
@@ -57,7 +59,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
       // initialize the map by calling initialize funciton
       initialize(latitude, longitude);
 
-    }, 
+    },
       function errorCallback(response) {
         console.log('Try again');
       });
@@ -99,8 +101,10 @@ TripPin.factory('gservice', function($http, $sanitize) {
   };
   // ------------------------------------------------------------------------------------
 
+  // ------------------------------------------------------------------------------------
+
   // Make http request to the server when user adds a marker and fills in a form ----------
-  // make saveData function avaialble in the global scope so that info window works
+  // saveData function defined in the global scope so that infoWindow has access to the funciton
   window.saveData = function() {
     var title = $sanitize(document.getElementById('titleInput').value);
     var description = $sanitize(document.getElementById('descriptionInput').value);
@@ -109,8 +113,8 @@ TripPin.factory('gservice', function($http, $sanitize) {
     console.log(title, description);
 
     var pin = {
-      title: title, 
-      description: description, 
+      title: title,
+      description: description,
       location: [latlng.lat(), latlng.lng()]
     };
 
@@ -149,9 +153,13 @@ TripPin.factory('gservice', function($http, $sanitize) {
           icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         });
 
+        myMarkerArray.push(marker); // push marker to Array to retain access
+        var markerIndex = myMarkerArray.length-1;
         // add a listener that checks for clicks on the pin
         google.maps.event.addListener(marker, 'click', function(e) {
-          savedInfoWindow.setContent(contentString);
+          savedInfoWindow.setContent(contentString +
+          '<button onclick="hidePin('+markerIndex+')"> Hide</button>'); // add a hide button
+
           savedInfoWindow.open(map, marker);
           // When clicked, open the pin's message
           // locationObj.message.open(map, marker);
@@ -184,6 +192,11 @@ TripPin.factory('gservice', function($http, $sanitize) {
         center: myLatLng
       });
 
+      // set limit on Map zoom
+      var opt = { minZoom: 2, maxZoom: 6 };
+      map.setOptions(opt);
+
+      // create an empty infoWindow
       infowindow = new google.maps.InfoWindow({
         content: ''
       });
@@ -203,18 +216,27 @@ TripPin.factory('gservice', function($http, $sanitize) {
 
           prevMarker = newMarker = new google.maps.Marker({
             position: e.latLng,
-            map: map
+            map: map,
+            draggable: true // make pin draggable
           });
           infowindow.setContent(html);
           infowindow.open(map, newMarker);
-        } else {
-          prevMarker.setMap(null);
-          limiter = 0;
-          handleClick(e);
         }
+        // else {
+        //   prevMarker.setMap(null);
+        //   limiter = 0;
+        //   handleClick(e);
+        // }
       };
 
+      // add event listener to map to add a pin with infoWindow
       google.maps.event.addListener(map, 'click', handleClick);
+
+      // add event listener to infoWindow to remove 'unsaved' pin
+      google.maps.event.addListener(infowindow,'closeclick',function(){
+        prevMarker.setMap(null);
+        limiter = 0;
+      });
     }
 
     // Loop through each location in the array and place a marker
@@ -227,9 +249,13 @@ TripPin.factory('gservice', function($http, $sanitize) {
         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
       });
 
+      myMarkerArray.push(marker); // push marker to Array to retain access
+
       // For each marker created, add a listener that checks for clicks
       google.maps.event.addListener(marker, 'click', function(e) {
-        savedInfoWindow.setContent(locationObj.message);
+
+        savedInfoWindow.setContent(locationObj.message +
+          '<button onclick="hidePin('+index+')"> Hide</button>');
         savedInfoWindow.open(map, marker);
         // When clicked, open the selected marker's message
         // locationObj.message.open(map, marker);
@@ -238,6 +264,12 @@ TripPin.factory('gservice', function($http, $sanitize) {
 
   }
   // ------------------------------------------------------------------------------------
+
+  // Hide saved Pins from the map --------------------------------------------------
+  // hidePin function defined in the global scope so that infoWindow has access to the funciton
+  window.hidePin = function(markerIndex) {
+    myMarkerArray[markerIndex].setMap(null);
+  }
 
   return googleMapService;
 });
