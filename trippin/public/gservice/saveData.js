@@ -6,71 +6,70 @@ window.saveData = function($sanitize, $http) {
     var description = $sanitize(document.getElementById('descriptionInput').value);
     var latlng = newMarker.getPosition();
     var image = document.getElementById('imgInput').value;
-
-    console.log(title, description, image);
-
-    var pin = {
-      title: title,
-      description: description,
-      location: [latlng.lat(), latlng.lng()],
-      image: image
-    };
-
-    $http({
-      method: 'POST',
-      url: '/pin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: JSON.stringify(pin)
-    }).then(function successCallback(response) {
-
-      // Create a popup window for the new location
-      var contentString = contentStringGen(pin);
-
-      // define the new location
-      var newLoc = {
-        latlon: new google.maps.LatLng(pin.location[0], pin.location[1]),
-        message: new google.maps.InfoWindow({
-          content: contentString,
-          maxWidth: 320
-        }),
-        title: pin.title,
-        description: pin.description,
-        image: pin.image
+ 
+    if (title !== '' || description !== '' || image !== '') {
+      var pin = {
+        title: title,
+        description: description,
+        location: [latlng.lat(), latlng.lng()],
+        image: image
       };
 
-      // set the pin on the map
-      var setPin = function(locationObj) {
-        var marker = new google.maps.Marker({
-          position: locationObj.latlon,
-          map: map,
-          title: 'Big Map',
-          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-        });
+      $http({
+        method: 'POST',
+        url: '/pin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(pin)
+      }).then(function successCallback(response) {
+        // Create a popup window for the new location
+        var contentString = contentStringGen(pin);
 
-        myMarkerArray.push(marker); // push marker to Array to retain access
-        var markerIndex = myMarkerArray.length - 1;
-        // add a listener that checks for clicks on the pin
-        google.maps.event.addListener(marker, 'click', function(e) {
-          savedInfoWindow.setContent(contentString +
-          '<button onclick="hidePin('+markerIndex+')"> Hide</button>'); // add a hide button
+        // define the new location
+        var newLoc = {
+          latlon: new google.maps.LatLng(pin.location[0], pin.location[1]),
+          message: new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 320
+          }),
+          title: pin.title,
+          description: pin.description,
+          image: pin.image
+        };
 
-          savedInfoWindow.open(map, marker);
-          // When clicked, open the pin's message
-          // locationObj.message.open(map, marker);
-        });
-      };
+        // set the pin on the map
+        var setPin = function(locationObj) {
+          var marker = new google.maps.Marker({
+            position: locationObj.latlon,
+            map: map,
+            title: 'Big Map',
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+          });
 
-      // add new location to locations array and set on the map
-      locations.push(newLoc);
-      if (prevMarker) prevMarker.setMap(null);
-      limiter = 0;
-      setPin(newLoc);
+          myMarkerArray.push(marker); // push marker to Array to retain access
+          var markerIndex = myMarkerArray.length - 1;
+          // add a listener that checks for clicks on the pin
+          google.maps.event.addListener(marker, 'click', function(e) {
+            savedInfoWindow.setContent(contentString +
+            '<button onclick="hidePin('+markerIndex+')"> Hide</button>'); // add a hide button
 
-      console.log('Pin added to the database');
-    }, function errorCallback(response) {
-      console.log('Try again');
-    });
+            savedInfoWindow.open(map, marker);
+            // When clicked, open the pin's message
+            // locationObj.message.open(map, marker);
+          });
+        };
+
+        // add new location to locations array and set on the map
+        locations.push(newLoc);
+        if (prevMarker) prevMarker.setMap(null);
+        limiter = 0;
+        setPin(newLoc);
+
+        console.log('Pin added to the database');
+      }, function errorCallback(response) {
+        console.log('Try again');
+      });
+    }
   };
 };
