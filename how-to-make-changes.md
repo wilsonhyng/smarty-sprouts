@@ -2,9 +2,6 @@ Create branch for new edits /feature
 
 1) $ git checkout -b [name_of_your_new_branch]
 
-2) Push the branch on github :
-$ git push origin [name_of_your_new_branch]
-
 Edit Code
 
 1)git status
