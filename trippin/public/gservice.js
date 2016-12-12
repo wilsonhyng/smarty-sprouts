@@ -57,10 +57,10 @@ TripPin.factory('gservice', function($http, $sanitize) {
       // initialize the map by calling initialize funciton
       initialize(latitude, longitude);
 
-      }, 
+    }, 
       function errorCallback(response) {
         console.log('Try again');
-    });
+      });
   };
   // ------------------------------------------------------------------------------------
 
@@ -72,15 +72,15 @@ TripPin.factory('gservice', function($http, $sanitize) {
     var locations = [];
 
     // Loop through all of the JSON entries provided in the response
-    for(var i= 0; i < response.length; i++) {
+    for (var i = 0; i < response.length; i++) {
       var pin = response[i];
 
       // Create popup windows for each record
-      var  contentString =
+      var contentString =
           '<p><b>title</b>: ' + pin.title +
           '<br><b>description</b>: ' + pin.description +
           '</p>' +
-          '<img src='+fakeImgUrl+' height="180" width="320">';
+          '<img src=' + fakeImgUrl + ' height="180" width="320">';
 
       // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
       locations.push({
@@ -102,8 +102,8 @@ TripPin.factory('gservice', function($http, $sanitize) {
   // Make http request to the server when user adds a marker and fills in a form ----------
   // make saveData function avaialble in the global scope so that info window works
   window.saveData = function() {
-    var title = $sanitize(document.getElementById("titleInput").value);
-    var description = $sanitize(document.getElementById("descriptionInput").value);
+    var title = $sanitize(document.getElementById('titleInput').value);
+    var description = $sanitize(document.getElementById('descriptionInput').value);
     var latlng = newMarker.getPosition();
 
     console.log(title, description);
@@ -112,7 +112,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
       title: title, 
       description: description, 
       location: [latlng.lat(), latlng.lng()]
-    }
+    };
 
     $http({
       method: 'POST',
@@ -124,17 +124,17 @@ TripPin.factory('gservice', function($http, $sanitize) {
     }).then(function successCallback(response) {
 
       // Create a popup window for the new location
-      var  contentString =
+      var contentString =
           '<p><span class="pin-title">' + pin.title +
           '</span><br>' + pin.description + '</p>' +
-          '<img src='+fakeImgUrl+' height="180" width="320">';
+          '<img src=' + fakeImgUrl + ' height="180" width="320">';
 
       // define the new location
       var newLoc = {
         latlon: new google.maps.LatLng(pin.location[0], pin.location[1]),
         message: new google.maps.InfoWindow({
-            content: contentString,
-            maxWidth: 320
+          content: contentString,
+          maxWidth: 320
         }),
         title: pin.title,
         description: pin.description
@@ -145,8 +145,8 @@ TripPin.factory('gservice', function($http, $sanitize) {
         var marker = new google.maps.Marker({
           position: locationObj.latlon,
           map: map,
-          title: "Big Map",
-          icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+          title: 'Big Map',
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         });
 
         // add a listener that checks for clicks on the pin
@@ -156,7 +156,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
           // When clicked, open the pin's message
           // locationObj.message.open(map, marker);
         });
-      }
+      };
 
       // add new location to locations array and set on the map
       locations.push(newLoc);
@@ -168,7 +168,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
     }, function errorCallback(response) {
       console.log('Try again');
     });
-  }
+  };
   // ------------------------------------------------------------------------------------
 
   // Initializes the map ---------------------------------------------------------------
@@ -177,11 +177,11 @@ TripPin.factory('gservice', function($http, $sanitize) {
     var myLatLng = {lat: selectedLat, lng: selectedLong};
 
     // If map has not been created already...
-    if (!map){
+    if (!map) {
       // Create a new map and place in the index.html page
       map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 2,
-          center: myLatLng
+        zoom: 2,
+        center: myLatLng
       });
 
       infowindow = new google.maps.InfoWindow({
@@ -193,7 +193,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
           limiter = 1;
           var lat = e.latLng.lat();
           var lng = e.latLng.lng();
-          var text=123;
+          var text = 123;
 
           var html = "<form><table>" +
                      "<tr><td>Title:</td> <td><input type='text' id='titleInput'/> </td> </tr>" +
@@ -212,7 +212,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
           limiter = 0;
           handleClick(e);
         }
-      }
+      };
 
       google.maps.event.addListener(map, 'click', handleClick);
     }
@@ -221,10 +221,10 @@ TripPin.factory('gservice', function($http, $sanitize) {
     locations.forEach(function(locationObj, index) {
 
       var marker = new google.maps.Marker({
-          position: locationObj.latlon,
-          map: map,
-          title: "Big Map",
-          icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+        position: locationObj.latlon,
+        map: map,
+        title: 'Big Map',
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
       });
 
       // For each marker created, add a listener that checks for clicks
@@ -236,27 +236,8 @@ TripPin.factory('gservice', function($http, $sanitize) {
       });
     });
 
-  };
+  }
   // ------------------------------------------------------------------------------------
 
   return googleMapService;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
