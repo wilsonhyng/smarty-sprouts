@@ -1,15 +1,14 @@
-TripPin.config(function ($routeProvider) { //TODO: add locationProvider later?
-  $routeProvider
-  .when('/signin', {
-    templateUrl: './templates/signin.html',
-    controller: 'signinController'
-  })
-  .when('/map', {
-    templateUrl: './templates/map.html',
-    controller: 'mapController'
-  })
-  .otherwise({
-    redirectTo: '/map'
-  });
-});
+// TripPin.config(function ($routeProvider) { //TODO: add locationProvider later?
+//   $routeProvider
+//   .when('/', {
+//     templateUrl: './templates/map.html',
+//     controller: 'mapController'
+//   })
+//   .otherwise({
+//     redirectTo: '/'
+//   });
+// });
 
+
+
+// not using routes right now, but may in the future
