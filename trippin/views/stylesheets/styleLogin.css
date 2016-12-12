@@ -1,0 +1,42 @@
+/*body{
+  margin: 0px;
+  background-image: url(http://icelandicfitness.com/wp-content/uploads/icelandscenery.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: background 4.5s linear;
+}*/
+
+body {
+  background-color: black;
+}
+
+.content:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  
+  display: block;
+  background-image: url('http://icelandicfitness.com/wp-content/uploads/icelandscenery.jpg');
+    width: 1200px;
+    height: 800px;
+  
+  -webkit-filter: blur(7px);
+  -moz-filter: blur(7px);
+  -o-filter: blur(7px);
+  -ms-filter: blur(7px);
+  filter: blur(7px);
+}
+
+#loginTitle h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 100px;
+  text-align: center;
+  color: pink;
+  padding-top: 80px;
+}
+
+#loginTitle h1 span {
+  color: white;
+}
