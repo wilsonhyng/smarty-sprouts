@@ -77,5 +77,10 @@ window.initialize = function(latitude, longitude) {
       // locationObj.message.open(map, marker);
     });
   });
-
+  
+  var logoutDiv = document.createElement('div');
+  var logout = new Logout(logoutDiv, map);
+  
+  logoutDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(logoutDiv);
 }

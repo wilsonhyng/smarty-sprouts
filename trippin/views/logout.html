@@ -4,21 +4,18 @@
     <meta name="google-signin-client_id" content="249488271008-ktn21fpv1l0c1ckokkvpvj431onsj7qs.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="./stylesheets/styleLogin.css">
-
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-
   </head>
   <body>
-    <div class="content">
-
-      <div id="loginTitle">
-        <h1>Trip<span>Pin</span></h1>
-      </div>
-      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="top: 55%; left: 46%; position: absolute;"></div>
-      <script>
-        function onSignIn(googleUser) {
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="top: 48%; left: 46%; position: absolute;"></div>
+    <script>
+      var loggedOut = false;
+      function onSignIn(googleUser) {
+        if (!loggedOut) {
+          loggedOut = true;
+          gapi.auth2.init();
+          var GoogleAuth = gapi.auth2.getAuthInstance();
+          GoogleAuth.signOut();
+        } else {
           var profile = googleUser.getBasicProfile();
           var id_token = googleUser.getAuthResponse().id_token;
           // profile.getId() Don't send this directly to your server!
@@ -37,8 +34,8 @@
             data = JSON.parse(data);
             window.location.href = data.url;
           });
-        };
-      </script>
-    </div>
+        }
+      };
+    </script>
   </body>
 </html>

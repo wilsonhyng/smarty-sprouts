@@ -14,8 +14,9 @@ TripPin.factory('gservice', function($http, $sanitize) {
   selectedLat = 19;
   selectedLong = 173;
   
+  // Import angular modules into helper functions
   window.saveData = saveData($sanitize, $http);
   refresh($http);
-
+  
   return googleMapService;
 });

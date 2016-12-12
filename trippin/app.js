@@ -1,19 +1,19 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
+var express      = require('express');
+var path         = require('path');
+var favicon      = require('serve-favicon');
+var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var serveStatic = require('serve-static');
-var session = require('express-session');
+var bodyParser   = require('body-parser');
+var serveStatic  = require('serve-static');
+var session      = require('express-session');
 
 var app = express();
 
 var db = require('./db/db.js');
 
 // import route files
-var pin = require('./routes/pin');
-var login = require('./routes/login');
+var pin    = require('./routes/pin');
+var login  = require('./routes/login');
 var photos = require('./routes/photos');
 
 
@@ -43,6 +43,9 @@ app.use(serveStatic(path.join(__dirname, 'views'), {
 // serve /views/login.html on request to '/login'
 app.use('/login', serveStatic(path.join(__dirname, 'views'), {
   'index': 'login.html'
+}));
+app.use('/logout', serveStatic(path.join(__dirname, 'views'), {
+  'index': 'logout.html'
 }));
 
 // serve error pages
