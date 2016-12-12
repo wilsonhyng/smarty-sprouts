@@ -12,38 +12,38 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-  TripPin - Pin your trips, photos, and memories.
+  <!-- Name the product in a way the reader (i.e. your target customers) will understand. -->
+  > TripPin - Pin your trips, photos, and memories.
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-  For trippers to intuitively see their past trips. 
+  <!-- Describe who the market for the product is and what benefit they get. One sentence only underneath the title. -->
+  > For trippers to intuitively see their past trips. 
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-  See all your trips on one map. Store your journey, memories, and photos in a pin on the map. 
+  <!-- Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good. -->
+  > See all your trips on one map. Store your journey, memories, and photos in a pin on the map. 
 
 ## Problem ##
-  > Describe the problem your product solves.
-  Users can experience difficulty managing photos and memories from trips. 
-  Quickly see where you have been, and what you have done. 
+  <!-- Describe the problem your product solves. -->
+  > Users can experience difficulty managing photos and memories from trips. 
+  > Quickly see where you have been, and what you have done. 
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
-  Trippin allows users to place pins on trips to store photos, documents, and other information.
+  <!-- Describe how your product elegantly solves the problem. -->
+  > Trippin allows users to place pins on trips to store photos, documents, and other information.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
-  "Trippin is my new favorite way to remember my adventures."
+  <!-- A quote from a spokesperson in your company. -->
+  > "Trippin is my new favorite way to remember my adventures."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
-  Log in, place a pin, save a memory. 
+  <!-- Describe how easy it is to get started. -->
+  > Log in, place a pin, save a memory. 
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-  "It is so cool so see all my trips on one map!"
+  <!-- Provide a quote from a hypothetical customer that describes how they experienced the benefit. -->
+  > "It is so cool so see all my trips on one map!"
   
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
-  Go on a trip and use Trippin!
+  <!-- Wrap it up and give pointers where the reader should go next. -->
+  > Go on a trip and use Trippin!
