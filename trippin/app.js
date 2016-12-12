@@ -28,7 +28,6 @@ app.use(session({
 
 // check for login and redirect to login page if not logged in
 app.get('/', function(req, res, next) {
-  console.log(req.session._id);
   if (!req.session._id) {
     res.redirect('/login');
   } else {
