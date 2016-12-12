@@ -15,6 +15,7 @@ var db = require('./db/db.js');
 var pin    = require('./routes/pin');
 var login  = require('./routes/login');
 var photos = require('./routes/photos');
+var logout = require('./routes/logout');
 
 
 // create session
@@ -67,6 +68,7 @@ app.use(serveStatic(path.join(__dirname, 'public')));
 app.use('/pin', pin);
 app.use('/login', login);
 app.use('/photos', photos);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
