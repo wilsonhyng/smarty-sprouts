@@ -82,7 +82,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
           '<p><b>title</b>: ' + pin.title +
           '<br><b>description</b>: ' + pin.description +
           '</p>' +
-          '<img src=' + fakeImgUrl + ' height="180" width="320">';
+          '<img src=' + pin.image + ' height="180" width="320">';
 
       // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
       locations.push({
@@ -109,13 +109,15 @@ TripPin.factory('gservice', function($http, $sanitize) {
     var title = $sanitize(document.getElementById('titleInput').value);
     var description = $sanitize(document.getElementById('descriptionInput').value);
     var latlng = newMarker.getPosition();
+    var image = document.getElementById('imgInput').value;
 
-    console.log(title, description);
+    console.log(title, description, image);
 
     var pin = {
       title: title,
       description: description,
-      location: [latlng.lat(), latlng.lng()]
+      location: [latlng.lat(), latlng.lng()],
+      image: image
     };
 
     $http({
@@ -131,7 +133,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
       var contentString =
           '<p><span class="pin-title">' + pin.title +
           '</span><br>' + pin.description + '</p>' +
-          '<img src=' + fakeImgUrl + ' height="180" width="320">';
+          '<img src=' + pin.image + ' height="180" width="320">';
 
       // define the new location
       var newLoc = {
@@ -141,7 +143,8 @@ TripPin.factory('gservice', function($http, $sanitize) {
           maxWidth: 320
         }),
         title: pin.title,
-        description: pin.description
+        description: pin.description,
+        image: pin.image
       };
 
       // set the pin on the map
@@ -154,7 +157,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
         });
 
         myMarkerArray.push(marker); // push marker to Array to retain access
-        var markerIndex = myMarkerArray.length-1;
+        var markerIndex = myMarkerArray.length - 1;
         // add a listener that checks for clicks on the pin
         google.maps.event.addListener(marker, 'click', function(e) {
           savedInfoWindow.setContent(contentString +
@@ -211,6 +214,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
           var html = "<form><table>" +
                      "<tr><td>Title:</td> <td><input type='text' id='titleInput'/> </td> </tr>" +
                      "<tr><td>Description:</td> <td><input type='text' id='descriptionInput'/></td> </tr>" +
+                     "<tr><td>Image:</td> <td><input type='text' id='imgInput'/></td> </tr>" +
                      "<tr><td></td><td><input type='button' value='Save & Close' onclick='saveData()'/></td></tr>" +
                      "</table></form>";
 
@@ -233,7 +237,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
       google.maps.event.addListener(map, 'click', handleClick);
 
       // add event listener to infoWindow to remove 'unsaved' pin
-      google.maps.event.addListener(infowindow,'closeclick',function(){
+      google.maps.event.addListener(infowindow, 'closeclick', function() {
         prevMarker.setMap(null);
         limiter = 0;
       });
@@ -269,7 +273,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
   // hidePin function defined in the global scope so that infoWindow has access to the funciton
   window.hidePin = function(markerIndex) {
     myMarkerArray[markerIndex].setMap(null);
-  }
+  };
 
   return googleMapService;
 });
