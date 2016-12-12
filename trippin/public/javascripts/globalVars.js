@@ -20,3 +20,6 @@ window.myMarkerArray = []; // Array of markers placed on the map
 // Initial Selected Location (default to center of the world)
 window.selectedLat = 19;
 window.selectedLong = 173;
+
+// Store ID of last opened image for saved pins
+window.last = null;
