@@ -15,21 +15,20 @@
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
+    1. [Running Server and Accessing Client](#running-server-and-accessing-client)
 1. [Team](#team)
 1. [Contributing](#contributing)
 
 ## Usage
 
+> Get Google Maps API from https://developers.google.com/maps/documentation/javascript/tutorial and use in views/index.html
 > Third-party cookies need to be enabled.
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node
+- MongoDB
+- Chrome Browser
 
 ## Development
 
@@ -43,10 +42,12 @@ npm install
 
 ### Running Server and Accessing Client
 
-From within the trippin directory:
+From within the Trippin directory:
 
 ```sh
-nodemon bin/www
+Start MongoDB database - mongod
+Start Mongo to check database data - mongo
+Start Server - nodemon bin/www
 ```
 
 Then point your browser towards [localhost:3000](http://localhost:3000)
@@ -54,9 +55,9 @@ Then point your browser towards [localhost:3000](http://localhost:3000)
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/smarty-sprouts/smarty-sprouts/issues?utf8=%E2%9C%93&q=is%3Aissue)
 
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](https://github.com/smarty-sprouts/smarty-sprouts/blob/master/_CONTRIBUTING.md) for contribution guidelines.
