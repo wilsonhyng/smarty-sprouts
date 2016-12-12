@@ -12,7 +12,7 @@
         var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
         // profile.getId() Don't send this directly to your server!
-
+        
         // Send email and id token to server
         $.ajax({
           url: '/login',
