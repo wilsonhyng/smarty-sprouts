@@ -16,6 +16,7 @@ TripPin.factory('gservice', function($http, $sanitize) {
   
   // Import angular modules into helper functions
   window.saveData = saveData($sanitize, $http);
+  window.Logout = Logout($http);
   refresh($http);
   
   return googleMapService;
