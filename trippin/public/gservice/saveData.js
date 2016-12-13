@@ -23,6 +23,10 @@ window.saveData = function($sanitize, $http) {
         },
         data: JSON.stringify(pin)
       }).then(function successCallback(response) {
+        //set a fake _id property on the pin so it can be retrieved later
+        pin._id = id_iterator;
+        id_iterator++;
+        
         // Create a popup window for the new location
         var contentString = contentStringGen(pin);
 

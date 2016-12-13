@@ -1,7 +1,7 @@
 window.contentStringGen = function(pin) {
   var contentString =
     '<p><span class="pin-title">' + pin.title +
-    '</span><br>' + pin.description + '</p><div id="' + pin._id + '" />';
+    '</span><br>' + pin.description + '</p><div id="' + pin._id + '" /><br>';
 
 
   var display    = document.createElement('img');
@@ -19,7 +19,7 @@ window.contentStringGen = function(pin) {
         if (element) {
           display.height = ((e.path[0].height / e.path[0].width) * 140);
           display.width  = ((e.path[0].width / e.path[0].height) * 140);
-          element.appendChild(display);
+          element.insertBefore(display, element.childNodes[0]);
           setTimeout(function() {
             last = id;
             display.style = '';
