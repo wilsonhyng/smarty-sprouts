@@ -40,10 +40,11 @@ app.use(serveStatic(path.join(__dirname, 'views'), {
   'index': 'index.html'
 }));
 
-// serve /views/login.html on request to '/login'
+// serve login page (/views/login.html) on request to '/login'
 app.use('/login', serveStatic(path.join(__dirname, 'views'), {
   'index': 'login.html'
 }));
+// serve logout page (/views/logout.html) on request to '/logout'
 app.use('/logout', serveStatic(path.join(__dirname, 'views'), {
   'index': 'logout.html'
 }));
