@@ -5,6 +5,10 @@
   background-repeat: no-repeat;
   transition: background 4.5s linear;
 }*/
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 
 body {
   background-color: black;
@@ -31,7 +35,7 @@ body {
 
 #loginTitle h1 {
   font-family: 'Pacifico', cursive;
-  font-size: 101px;
+  font-size: 180px;
   text-align: center;
   color: pink;
   padding-top: 80px;
