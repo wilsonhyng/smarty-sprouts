@@ -19,8 +19,8 @@ body {
   
   display: block;
   background-image: url('http://icelandicfitness.com/wp-content/uploads/icelandscenery.jpg');
-    width: 1200px;
-    height: 800px;
+    width: 100%;
+    height: 100%;
   
   -webkit-filter: blur(7px);
   -moz-filter: blur(7px);
