@@ -23,3 +23,6 @@ window.selectedLong = 173;
 
 // Store ID of last opened image for saved pins
 window.last = null;
+
+// Iterator for unique IDs for locally saved map points
+window.id_iterator = 0;
