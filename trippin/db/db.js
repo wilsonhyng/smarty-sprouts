@@ -27,5 +27,6 @@ mongoose.model('Pins', Pins);
 mongoose.model('Photos', Photos);
 
 var host = (process.env.MONGOLAB_URL || 'mongodb://localhost:27017/trippin');
+
 mongoose.connect(host);
 

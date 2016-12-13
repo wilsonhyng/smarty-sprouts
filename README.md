@@ -29,6 +29,8 @@
 - Node
 - MongoDB
 - Chrome Browser
+- Google OAuth API Key
+- Google Maps API Key
 
 ## Development
 
